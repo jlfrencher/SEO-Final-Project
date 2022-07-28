@@ -9,7 +9,7 @@
 
 <body>
 	<header class="site-header">
-		{% include 'navbar.html' %}
+		<!-- {% include 'navbar.html' %} -->
 		<!-- <h1>Notifood</h1> -->
 		{% with messages = get_flashed_messages(with_categories=true) %}
 		{% if messages %}
@@ -20,10 +20,10 @@
 		{% endfor %}
 		{% endif %}
 		{% endwith %}
-		{% block content %}{% endblock %}
 	</header>
+	<h1>WASSUP</h1>
+	<!-- {% block content %}{% endblock %} -->
 
-	{% block scripts %}{% endblock %}
 </body>
 
 </html>

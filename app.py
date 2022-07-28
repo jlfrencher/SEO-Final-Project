@@ -12,6 +12,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+product_name = "Hybrid Schedule"
+
 # class food_item(db.Model):
 #     __tablename__ = 'food_items'
 #     id = db.Column(db.Integer, primary_key=True)
@@ -30,21 +32,12 @@ db = SQLAlchemy(app)
 #             'expiration_date': self.expiration_date.strftime("%m/%d/%Y"),
 #         }
 
-db.create_all()
+# db.create_all()
 
 @app.route("/")
 @app.route("/home")
 def home():
-    if not session.get("uuid"):
-        return redirect(url_for('about'))
-    else:
-        if not session.get("announced"):
-            message = checkForExpired(food_item, User, session.get("uuid"))
-            session['announced'] = True
-            return render_template('home.html', subtitle='Home', message=message)
-        else:
-            return render_template('home.html', subtitle='Home', message="")
-
+    return render_template('layout.html', title=f'{product_name}')
 
 
 if __name__ == '__main__':
