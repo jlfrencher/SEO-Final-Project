@@ -1,0 +1,19 @@
+
+<head>
+    <link rel="stylesheet" href="/static/css/navbar.css">
+</head>
+
+<nav class="navbar">
+    <!-- <a class="navbar-brand mr-4" href="/"><img class="logo" src="">{{product_name}}</a> -->
+
+    <ul>
+        <li class="nav-left"><a href="{{ url_for('main.info') }}">Home</a></li>
+        {% if not current_user.is_authenticated %}
+        <li class="nav-right"><a href="{{ url_for('auth.signup') }}">Sign Up</a></li>
+        <li class="nav-right"><a href="{{ url_for('auth.signin') }}">Sign In</a></li>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+        <li class="nav-right"><a href="{{ url_for('auth.signout') }}">Sign out</a></li>
+        {% endif %}
+    </ul>
+</nav>
