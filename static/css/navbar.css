@@ -31,3 +31,13 @@ li a {
 li a:hover {
     background-color: #111;
 }
+
+.notification.error{
+    background-color: lightcoral;
+    padding: 5px;
+}
+
+.notification.success{
+    background-color: lightgreen;
+    padding: 5px;
+}

@@ -14,8 +14,8 @@ def signin():
         user = User.query.filter_by(email=form.email.data).first()
 
         if not user or not check_password_hash(user.password, form.password.data):
-            flash('Please check your login details and try again.')
-            return redirect(url_for('auth.login'))
+            flash('Please check your login details and try again.', "error")
+            return redirect(url_for('auth.signin'))
         
         login_user(user, remember=form.remember.data)
                 
@@ -29,7 +29,7 @@ def signup():
         user = User.query.filter_by(email=form.email.data).first()
 
         if user:
-            flash('Email address already exists')
+            flash('Email address already exists', 'error')
             return redirect(url_for('auth.signup'))
 
         new_user = User(
@@ -40,6 +40,8 @@ def signup():
                 )
         db.session.add(new_user)
         db.session.commit()
+
+        flash("User created sucessfully! Please sign in below", "success")
 
         return redirect(url_for("auth.signin"))
     return render_template('login.html', title="Sign in/up", form=form, form_type=False)

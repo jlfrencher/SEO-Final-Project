@@ -1,7 +1,6 @@
 from flask import Flask
 from extensions import *
 from config import SECRET_KEY
-from models import User
 import main
 import auth
 
@@ -13,6 +12,11 @@ def create_app():
     
     register_extensions(app)
     register_blueprints(app)
+
+    from models import User
+
+    with app.app_context():
+        db.create_all()
 
     login_manager.login_view = 'auth.login'
 

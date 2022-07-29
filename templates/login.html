@@ -6,6 +6,15 @@
 </head>
 
 <section class="forms">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class='notification {{ messages[0][0] }}'>
+            {{ messages[0][1] }}
+             <!-- Go to <a href="{{ url_for('auth.signin') }}">login page</a>. -->
+        </div>
+    {% endif %}
+    {% endwith %}
+
     {% if form_type %}
     <h1>Welcome Back!</h1>
 
@@ -40,13 +49,6 @@
     </form>
 
     {% else %}
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <div class="notification is-danger">
-            {{ messages[0] }}. Go to <a href="{{ url_for('auth.signin') }}">login page</a>.
-        </div>
-    {% endif %}
-    {% endwith %}
     <h1>Sign Up</h1>
 
     <form method="POST" action="">
