@@ -33,8 +33,8 @@ def signup():
             return redirect(url_for('auth.signup'))
 
         new_user = User(
-                    name=form.name.data,
-                    groupID = form.groupID.data,
+                    name = form.name.data,
+                    group_id = form.group_id.data,
                     email = form.email.data,
                     password = generate_password_hash(form.password.data, method='sha256')
                 )

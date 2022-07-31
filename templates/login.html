@@ -90,10 +90,10 @@
                 {% endif %}
             </div>
             <div class="form-group">
-                {{ form.groupID.label(class="form-control-label") }} {% if form.groupID.errors %}
-                {{ form.groupID(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback"> {% for error in form.groupID.errors%} <span>{{error}}</span>
-                    {% endfor %} </div> {% else %} {{ form.groupID(class="form-control form-control-lg") }}
+                {{ form.group_id.label(class="form-control-label") }} {% if form.group_id.errors %}
+                {{ form.group_id(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback"> {% for error in form.group_id.errors%} <span>{{error}}</span>
+                    {% endfor %} </div> {% else %} {{ form.group_id(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
             <div class="form-group">

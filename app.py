@@ -13,7 +13,7 @@ def create_app():
     register_extensions(app)
     register_blueprints(app)
 
-    from models import User
+    from models import User, Slot
 
     with app.app_context():
         db.create_all()
@@ -35,6 +35,7 @@ def register_blueprints(app):
     app.register_blueprint(main.main)
     app.register_blueprint(auth.auth)
 
+app = create_app()
+
 if __name__ == '__main__':
-    app = create_app()
     app.run(debug=True, host="0.0.0.0")
