@@ -2,6 +2,7 @@
 {% block content %}
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/forms.css">
 </head>
 
@@ -16,35 +17,55 @@
     {% endwith %}
 
     {% if form_type %}
-    <h1>Welcome Back!</h1>
+    <h1 id = "welcome_tag">Welcome Back!</h1>
 
-    <form method="POST" action="">
+    <form method="POST" action="" class = "form">
         {{ form.hidden_tag() }}
+        <img class = "login_icon" src="{{url_for('static', filename='login_icon.png')}}">
+        <h1>Login</h1>
         <fieldset class="form-group">
-            <div class="form-group">
-                {{ form.email.label(class="form-control-label") }} {% if form.email.errors %}
-                {{ form.email(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback"> {% for error in form.email.errors%} <span>{{error}}</span>
-                    {% endfor %} </div> {% else %} {{ form.email(class="form-control form-control-lg") }}
-                {% endif %}
+            <div id = "email_field" class="form-group">
+                {{ form.email.label(class="email_label") }} 
+                {% if form.email.errors %}
+                  {{ form.email(class="form-control form-control-lg is-invalid") }}
+                  <div class="invalid-feedback"> 
+                    {% for error in form.email.errors%} 
+                        <span>{{error}}</span>
+                    {% endfor %} 
+                    </div> 
+                    {% else %} 
+                        {{ form.email(class="email_box", placeholder = "Enter Email") }}
+                    {% endif %}
+            </div>
+            <div id = "password_field" class="form-group">
+                {{ form.password.label(class="password_label") }} 
+                {% if form.password.errors %}
+                  {{ form.password(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback"> 
+                    {% for error in form.password.errors%} 
+                        <span>{{error}}</span>
+                    {% endfor %} 
+                    </div> 
+                    {% else %} 
+                        {{ form.password(class="password_box" , placeholder="Enter Password") }}
+                    {% endif %}
             </div>
             <div class="form-group">
-                {{ form.password.label(class="form-control-label") }} {% if form.password.errors %}
-                {{ form.password(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback"> {% for error in form.password.errors%} <span>{{error}}</span>
-                    {% endfor %} </div> {% else %} {{ form.password(class="form-control form-control-lg") }}
-                {% endif %}
-            </div>
-            <div class="form-group">
-                {{ form.remember.label(class="") }} {% if form.remember.errors %}
-                {{ form.remember(class="") }}
-                <div class="invalid-feedback"> {% for error in form.remember.errors%} <span>{{error}}</span>
-                    {% endfor %} </div> {% else %} {{ form.remember(class="") }}
-                {% endif %}
+                {{ form.remember.label(class="") }} 
+                {% if form.remember.errors %}
+                  {{ form.remember(class="") }}
+                <div class="invalid-feedback"> 
+                    {% for error in form.remember.errors%} 
+                        <span>{{error}}</span>
+                    {% endfor %} 
+                    </div> 
+                    {% else %} 
+                        {{ form.remember(class="") }}
+                    {% endif %}
             </div>
         </fieldset>
         <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info") }}
+            {{ form.submit(class="submit_button")}}
         </div>
     </form>
 

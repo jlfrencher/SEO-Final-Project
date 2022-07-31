@@ -1,11 +1,96 @@
-.forms{
-    border: 1px solid black;
-    width: 600px;
-    height: 600px;
-    position: fixed;
+*{
+    font-family: 'Lato', sans-serif;
+}
+
+.form{
+    width: 320px;
+    height: 420px;
+    background: #fff;
     top: 50%;
     left: 50%;
-    margin-top: -300px;
-    margin-left: -300px;
-    padding: 20px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding: 70px 30px;
+
+
+}
+
+body{
+    background-color: #FFE5B4;
+}
+
+#welcome_tag{
+    color: black;
+    text-align: center;
+}
+
+
+.email_label{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+.password_label{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+.login_icon{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    top: -50px;
+    left: calc(50% - 50px);
+}
+
+h1{
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center; 
+    font-size: 30px;
+}
+.email_box{
+    width: 100%;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 1px solid #000;
+    background: transparent;
+    outline: none;
+    height: 40px;
+}
+
+.password_box{
+    width: 100%;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 1px solid #000;
+    background: transparent;
+    outline: none;
+    height: 40px;
+}
+
+.submit_button{
+    width: 260px;
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #fb2525;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
+    
+}
+
+.submit_button: hover{
+    cursor: pointer;
+    background: #ffc107;
+    color: #000;
+}
+
+.btn btn-outline-info{
+    text-align: center;
 }
