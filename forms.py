@@ -6,7 +6,7 @@ class RegistrationForm(FlaskForm):
     name = StringField('Name',
                        validators=[DataRequired()])
 
-    groupID = IntegerField('Group ID',
+    group_id = IntegerField('Group ID',
                            validators=[DataRequired(), NumberRange(min=10000000, max=99999999)])
 
     email = StringField('Email',
@@ -21,7 +21,7 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Username',
+    email = StringField('Email',
                         validators=[DataRequired()])
 
     password = PasswordField('Password', validators=[DataRequired()])
