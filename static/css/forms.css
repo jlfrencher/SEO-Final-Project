@@ -41,7 +41,7 @@ body{
 .login_icon{
     width: 100px;
     height: 100px;
-    border-radius: 51%;
+    border-radius: 50%;
     position: absolute;
     top: -50px;
     left: calc(50% - 50px);
