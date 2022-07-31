@@ -1,4 +1,4 @@
 __pycache__
 site.db
 config.py
-.codio
+*.codio
