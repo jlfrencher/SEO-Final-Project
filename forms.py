@@ -24,11 +24,10 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email',
+    email = StringField('',
                         validators=[DataRequired()])
 
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('', validators=[DataRequired()])
 
-    remember = BooleanField('Remember Me')
 
     submit = SubmitField('Log In')

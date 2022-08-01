@@ -18,14 +18,14 @@
     {% endwith %}
 
     {% if form_type %}
-    <h1 id = "welcome_tag">Welcome Back!</h1>
 
-    <form method="POST" action="" class = "form">
+    <form method="POST" action="" id = "sign_in_form">
+      <div id = "signin-container">
         {{ form.hidden_tag() }}
-        <img class = "login_icon" src="{{url_for('static', filename='login_icon.png')}}">
-        <h1>Login</h1>
+        <span class = "signin-header">Log in</span>
+        <div id = "signin2-container">
         <fieldset class="form-group">
-            <div id = "email_field" class="form-group">
+            <div class="signin-form-group">
                 {{ form.email.label(class="email_label") }} 
                 {% if form.email.errors %}
                   {{ form.email(class="form-control form-control-lg is-invalid") }}
@@ -35,10 +35,12 @@
                     {% endfor %} 
                     </div> 
                     {% else %} 
-                        {{ form.email(class="email_box", placeholder = "Enter Email") }}
+                    <i class="fa-solid fa-envelope"></i>
+                        {{ form.email(class="signin_input", placeholder = "Email") }}
+                        <span class = "bar"></span>
                     {% endif %}
             </div>
-            <div id = "password_field" class="form-group">
+            <div class="signin-form-group">
                 {{ form.password.label(class="password_label") }} 
                 {% if form.password.errors %}
                   {{ form.password(class="form-control form-control-lg is-invalid") }}
@@ -48,32 +50,26 @@
                     {% endfor %} 
                     </div> 
                     {% else %} 
-                        {{ form.password(class="password_box" , placeholder="Enter Password") }}
-                    {% endif %}
-            </div>
-            <div class="form-group">
-                {{ form.remember.label(class="") }} 
-                {% if form.remember.errors %}
-                  {{ form.remember(class="") }}
-                <div class="invalid-feedback"> 
-                    {% for error in form.remember.errors%} 
-                        <span>{{error}}</span>
-                    {% endfor %} 
-                    </div> 
-                    {% else %} 
-                        {{ form.remember(class="") }}
+                    <i class="fa-solid fa-lock"></i>
+                        {{ form.password(class="signin_input", placeholder="Password") }}
+                        <span class = "bar"></span>
                     {% endif %}
             </div>
         </fieldset>
-        <div class="form-group">
-            {{ form.submit(class="submit_button")}}
+        <div class="signin-form-group">
+            {{ form.submit(class="submit_button", id = "submit_signin")}}
         </div>
+        <div class = "switch-login">
+            <a href = '#'>Don't have an account yet? <span>Sign up</span></a>
+        </div>
+        </div>
+      </div>
     </form>
 
     {% else %}
     
 
-    <form method="POST" action="" id = "sign_in_form">
+    <form method="POST" action="" id = "sign_up_form">
       <div id = "form-container">
           <span class = "form-header">Sign up</span>
           <div id = "form2-container">
@@ -90,7 +86,7 @@
                   </div> 
              {% else %} 
              <i class = "fas fa-user"></i>
-                {{ form.name(class="signin_input", placeholder = "Name") }}
+                {{ form.name(class="signup_input", placeholder = "Name") }}
                 <span class = "bar"></span>
              {% endif %}
             </div>
@@ -105,7 +101,7 @@
                 </div> 
               {% else %} 
               <i class="fa-solid fa-envelope"></i>
-                {{ form.email(class="signin_input", placeholder = "Email") }}
+                {{ form.email(class="signup_input", placeholder = "Email") }}
                 <span class = "bar"></span>
               {% endif %}
             </div>
@@ -120,7 +116,7 @@
                 </div> 
               {% else %} 
               <i class="fa-solid fa-id-badge"></i>
-                {{ form.group_id(class="signin_input", placeholder = "ID") }}
+                {{ form.group_id(class="signup_input", placeholder = "ID") }}
                 <span class = "bar"></span>
               {% endif %}
             </div>
@@ -135,7 +131,7 @@
                 </div> 
                     {% else %}
                     <i class="fa-solid fa-lock"></i>
-                     {{ form.password(class="signin_input", placeholder = "Password") }}
+                     {{ form.password(class="signup_input", placeholder = "Password") }}
                      <span class = "bar"></span>
                     {% endif %}
             </div>
@@ -150,7 +146,7 @@
                 </div> 
                 {% else %}
                 <i class="fa-solid fa-lock"></i>
-                    {{ form.confirm_password(class="signin_input", placeholder = "Confirm Password") }} 
+                    {{ form.confirm_password(class="signup_input", placeholder = "Confirm Password") }} 
                     <span class = "bar"></span>
                 {% endif %}
             </div>

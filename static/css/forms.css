@@ -29,85 +29,125 @@ body{
     background-color: #FFE5B4;
 }
 
-#welcome_tag{
-    color: black;
-    text-align: center;
-}
-
-
-.email_label{
-    margin: 0;
-    padding: 0;
-    font-weight: bold;
-}
-
-.password_label{
-    margin: 0;
-    padding: 0;
-    font-weight: bold;
-}
-
-.login_icon{
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    position: absolute;
-    top: -50px;
-    left: calc(50% - 50px);
-}
-
-h1{
-    margin: 0;
-    padding: 0 0 20px;
-    text-align: center; 
-    font-size: 30px;
-}
-.email_box{
-    width: 100%;
-    margin-bottom: 20px;
-    border: none;
-    border-bottom: 1px solid #000;
-    background: transparent;
-    outline: none;
-    height: 40px;
-}
-
-.password_box{
-    width: 100%;
-    margin-bottom: 20px;
-    border: none;
-    border-bottom: 1px solid #000;
-    background: transparent;
-    outline: none;
-    height: 40px;
-}
-
-.submit_button{
-    width: 260px;
-    border: none;
-    outline: none;
-    height: 40px;
-    background: #fb2525;
-    color: #fff;
-    font-size: 18px;
-    border-radius: 20px;
+#sign_in_form{
+    width: 90%;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     
 }
 
-.submit_button: hover{
-    cursor: pointer;
-    background: #ffc107;
-    color: #000;
+#signin-container{
+    width: 100%;
+    max-width: 40rem;
+    background-color: #fff;
+    position: relative;
+    padding: 10rem 0;
+    box-shadow: 0 1px 1.5rem rgba(0,0,0,.1);
+    border-radius: 1rem;
+    z-index: 1;
+    
+
 }
 
-.btn btn-outline-info{
-    text-align: center;
+#signin-container::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8.5rem;
+    background: linear-gradient(to left, #fc6767, #ec008c);
+    border-bottom-right-radius: 100%;
+    border-bottom-left-radius: 100%;
+    z-index: -1;
 }
+
+.signin-header{
+    color: #fff;
+    font-size: 2.5rem;
+    position: absolute;
+    top: 3.5rem;
+    left: 16.5rem;
+}
+
+#signin2-container{
+    
+    padding: 2rem 0;
+    background-color: #fff;
+    border-radius: 1rem;
+   
+}
+
+.signin-form-group{
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    align-items: baseline;
+}
+
+.signin_input{
+    position: relative;
+    width: 100%;
+    padding: 1rem 0;
+    margin-top: 0.5rem;
+    border: none;
+    outline: none;
+    font-size: 1.8 rem;
+    color: #fc6767;
+}
+
+.signin-form-group > i{
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    color: #fc6767;
+}
+
+.signin-form-group .bar{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.1);
+    width: 100%;
+    height: 1px;
+}
+
+.signin-form-group .bar::before{
+    content: '';
+    position: absolute;
+    background-color: #fc6767;
+    width: 0;
+    height: 4px;
+    transition: width 650ms;
+}
+
+.signin-form-group input:focus + .bar::before{
+    width: 100%;
+}
+
+#submit_signin{
+    margin: 1rem auto;
+    padding: 1rem 5rem;
+    background: linear-gradient(to left, #fc6767, #ec008c);
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 3rem;
+}
+
+#submit_signup:focus, #submit_signin:hover{
+    background: linear-gradient(to right, #fc6767, #ec008c);
+}
+
 
 /* Sign-up page styling */
 
 
-#sign_in_form{
+#sign_up_form{
     width: 90%;
     height: 100vh;
     margin: 0 auto;
@@ -127,8 +167,6 @@ h1{
     box-shadow: 0 1px 1.5rem rgba(0,0,0,.1);
     border-radius: 1rem;
     z-index: 1;
-    
-
 }
 
 #form-container::before{
@@ -168,7 +206,7 @@ h1{
     align-items: baseline;
 }
 
-.signin_input{
+.signup_input{
     position: relative;
     width: 100%;
     padding: 1rem 0;
