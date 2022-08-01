@@ -60,7 +60,8 @@
             {{ form.submit(class="submit_button", id = "submit_signin")}}
         </div>
         <div class = "switch-login">
-            <a href="{{ url_for('auth.signup') }}">Don't have an account yet? <span>Sign up</span></a>
+          <p>Don't have an account yet?</p>
+            <a href="{{ url_for('auth.signup') }}"><span>Sign up</span></a>
         </div>
         </div>
       </div>
@@ -155,7 +156,8 @@
             {{ form.submit(class="fa-brands fa-telegram", id = "submit_signup") }}
         </div>
         <div class = "switch-login">
-            <a href="{{ url_for('auth.signin') }}">Already have an account? <span>Login</span></a>
+            <p>Already have an account?</p>
+            <a href="{{ url_for('auth.signin') }}"><span>Login</span></a>
         </div>
         </div>
       </div>

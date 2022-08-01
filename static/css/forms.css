@@ -277,3 +277,13 @@ body{
     padding-bottom: 2px;
     border-bottom: 2px solid #fc6767;
 }
+
+p{
+    display:inline-block;
+    text-decoration: none;
+    color: #a1a1a1;
+}
+
+a{
+    display:inline-block;
+}
