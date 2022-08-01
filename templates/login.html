@@ -19,6 +19,7 @@
 
     {% if form_type %}
 
+    <title>Hybrid Schedule | Sign In</title>
     <form method="POST" action="" id = "sign_in_form">
       <div id = "signin-container">
         {{ form.hidden_tag() }}
@@ -75,8 +76,8 @@
     </form>
 
     {% else %}
-    
 
+    <title>Hybrid Schedule | Sign Up</title>
     <form method="POST" action="" id = "sign_up_form">
       <div id = "form-container">
           <span class = "form-header">Sign up</span>
