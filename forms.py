@@ -2,22 +2,25 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, IntegerField, BooleanField
 from wtforms.validators import DataRequired, NumberRange, Email, EqualTo
 
-class RegistrationForm(FlaskForm):
-    name = StringField('Name',
+class RegistrationForm(FlaskForm):  
+    name = StringField('',
                        validators=[DataRequired()])
 
-    group_id = IntegerField('Group ID',
+    group_id = IntegerField('',
                            validators=[DataRequired(), NumberRange(min=10000000, max=99999999)])
 
-    email = StringField('Email',
+    email = StringField('',
                         validators=[DataRequired(), Email()])
 
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('', validators=[DataRequired()])
 
-    confirm_password = PasswordField('Confirm Password',
+    confirm_password = PasswordField('',
                                      validators=[DataRequired(), EqualTo('password')])
-                                     
+                              
     submit = SubmitField('Sign Up')
+
+     
+    
 
 
 class LoginForm(FlaskForm):

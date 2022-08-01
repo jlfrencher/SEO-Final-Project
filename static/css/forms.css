@@ -1,5 +1,14 @@
+/* Sign-in page styling */
+
 *{
     font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    
 }
 
 .form{
@@ -93,4 +102,140 @@ h1{
 
 .btn btn-outline-info{
     text-align: center;
+}
+
+/* Sign-up page styling */
+
+
+#sign_in_form{
+    width: 90%;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+#form-container{
+    width: 100%;
+    max-width: 40rem;
+    background-color: #fff;
+    position: relative;
+    padding: 10rem 0;
+    box-shadow: 0 1px 1.5rem rgba(0,0,0,.1);
+    border-radius: 1rem;
+    z-index: 1;
+    
+
+}
+
+#form-container::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8.5rem;
+    background: linear-gradient(to left, #fc6767, #ec008c);
+    border-bottom-right-radius: 100%;
+    border-bottom-left-radius: 100%;
+    z-index: -1;
+}
+
+.form-header{
+    color: #fff;
+    font-size: 2.5rem;
+    position: absolute;
+    top: 3.5rem;
+    left: 16.5rem;
+}
+
+#form2-container{
+    
+    padding: 2rem 0;
+    background-color: #fff;
+    border-radius: 1rem;
+   
+}
+
+.signup-form-group{
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    align-items: baseline;
+}
+
+.signin_input{
+    position: relative;
+    width: 100%;
+    padding: 2rem 0;
+    maring-top: 0.5rem;
+    border: none;
+    outline: none;
+    font-size: 1.8 rem;
+    color: #fc6767;
+}
+
+.signup-form-group > i{
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    color: #fc6767;
+}
+
+.signup-form-group .bar{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.1);
+    width: 100%;
+    height: 1px;
+}
+
+.signup-form-group .bar::before{
+    content: '';
+    position: absolute;
+    background-color: #fc6767;
+    width: 0;
+    height: 4px;
+    transition: width 650ms;
+}
+
+.signup-form-group input:focus + .bar::before{
+    width: 100%;
+}
+
+#submit_signup{
+    margin: 1rem auto;
+    padding: 1rem 5rem;
+    background: linear-gradient(to left, #fc6767, #ec008c);
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 3rem;
+}
+
+#submit_signup:focus, #submit_signup:hover{
+    background: linear-gradient(to right, #fc6767, #ec008c);
+}
+
+.switch-login{
+    text-align: center;
+}
+
+.switch-login a{
+    text-decoration: none;
+    color: #a1a1a1;
+}
+
+.switch-login a span{
+    color: #fc6767;
+}
+
+.switch-login a span:hover{
+    padding-bottom: 2px;
+    border-bottom: 2px solid #fc6767;
 }

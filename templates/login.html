@@ -4,6 +4,7 @@
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/forms.css">
+    <script src="https://kit.fontawesome.com/90715ce400.js" crossorigin="anonymous"></script>
 </head>
 
 <section class="forms">
@@ -70,51 +71,98 @@
     </form>
 
     {% else %}
-    <h1>Sign Up</h1>
+    
 
-    <form method="POST" action="">
+    <form method="POST" action="" id = "sign_in_form">
+      <div id = "form-container">
+          <span class = "form-header">Sign up</span>
+          <div id = "form2-container">
         {{ form.hidden_tag() }}
-        <fieldset class="form-group">
-            <div class="form-group">
-                {{ form.name.label(class="form-control-label") }} {% if form.name.errors %}
-                {{ form.name(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback"> {% for error in form.name.errors%} <span>{{error}}</span>
-                    {% endfor %} </div> {% else %} {{ form.name(class="form-control form-control-lg") }}
-                {% endif %}
+        <fieldset class="form-group" id = "formed">
+            <div class="signup-form-group">
+                {{ form.name.label(class="form-control-label") }} 
+                {% if form.name.errors %}
+                  {{ form.name(class="form-control form-control-lg is-invalid") }}
+                  <div class="invalid-feedback"> 
+                    {% for error in form.name.errors%} 
+                        <span>{{error}}</span>
+                    {% endfor %} 
+                  </div> 
+             {% else %} 
+             <i class = "fas fa-user"></i>
+                {{ form.name(class="signin_input", placeholder = "Name") }}
+                <span class = "bar"></span>
+             {% endif %}
             </div>
-            <div class="form-group">
-                {{ form.email.label(class="form-control-label") }} {% if form.email.errors %}
-                {{ form.email(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback"> {% for error in form.email.errors%} <span>{{error}}</span>
-                    {% endfor %} </div> {% else %} {{ form.email(class="form-control form-control-lg") }}
-                {% endif %}
+            <div class="signup-form-group">
+                {{ form.email.label(class="form-control-label") }} 
+                {% if form.email.errors %}
+                  {{ form.email(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback"> 
+                    {% for error in form.email.errors%}
+                        <span>{{error}}</span>
+                    {% endfor %} 
+                </div> 
+              {% else %} 
+              <i class="fa-solid fa-envelope"></i>
+                {{ form.email(class="signin_input", placeholder = "Email") }}
+                <span class = "bar"></span>
+              {% endif %}
             </div>
-            <div class="form-group">
-                {{ form.group_id.label(class="form-control-label") }} {% if form.group_id.errors %}
-                {{ form.group_id(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback"> {% for error in form.group_id.errors%} <span>{{error}}</span>
-                    {% endfor %} </div> {% else %} {{ form.group_id(class="form-control form-control-lg") }}
-                {% endif %}
+            <div class="signup-form-group">
+                {{ form.group_id.label(class="form-control-label") }} 
+                {% if form.group_id.errors %}
+                  {{ form.group_id(class="form-control form-control-lg is-invalid") }}
+                  <div class="invalid-feedback"> 
+                    {% for error in form.group_id.errors%} 
+                        <span>{{error}}</span>
+                    {% endfor %} 
+                </div> 
+              {% else %} 
+              <i class="fa-solid fa-id-badge"></i>
+                {{ form.group_id(class="signin_input", placeholder = "ID") }}
+                <span class = "bar"></span>
+              {% endif %}
             </div>
-            <div class="form-group">
-                {{ form.password.label(class="form-control-label") }} {% if form.password.errors %}
-                {{ form.password(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback"> {% for error in form.password.errors%} <span>{{error}}</span>
-                    {% endfor %} </div> {% else %} {{ form.password(class="form-control form-control-lg") }}
-                {% endif %}
+            <div class="signup-form-group">
+                {{ form.password.label(class="form-control-label") }} 
+                {% if form.password.errors %}
+                  {{ form.password(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback"> 
+                    {% for error in form.password.errors%} 
+                        <span>{{error}}</span>
+                    {% endfor %} 
+                </div> 
+                    {% else %}
+                    <i class="fa-solid fa-lock"></i>
+                     {{ form.password(class="signin_input", placeholder = "Password") }}
+                     <span class = "bar"></span>
+                    {% endif %}
             </div>
-            <div class="form-group">
+            <div class="signup-form-group">
                 {{ form.confirm_password.label(class="form-control-label") }}
                 {% if form.confirm_password.errors %}
-                {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
-                <div class="invalid-feedback"> {% for error in form.confirm_password.errors%}
-                    <span>{{error}}</span> {% endfor %} </div> {% else %}
-                {{ form.confirm_password(class="form-control form-control-lg") }} {% endif %}
+                  {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback"> 
+                    {% for error in form.confirm_password.errors%}
+                        <span>{{error}}</span> 
+                    {% endfor %} 
+                </div> 
+                {% else %}
+                <i class="fa-solid fa-lock"></i>
+                    {{ form.confirm_password(class="signin_input", placeholder = "Confirm Password") }} 
+                    <span class = "bar"></span>
+                {% endif %}
             </div>
         </fieldset>
-        <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info") }}
+        <div class="signup-form-group">
+            {{ form.submit(class="fa-brands fa-telegram", id = "submit_signup") }}
         </div>
+        <div class = "switch-login">
+            <a href = '#'>Already have an account? <span>Login</span></a>
+        </div>
+        </div>
+      </div>
     </form>
     {% endif %}
 </section>
