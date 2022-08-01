@@ -1,19 +1,43 @@
+<!--====== HEADER PART START ======-->
+    
+<header class="header-area">
+    <div class="navbar-area headroom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-expand-lg">
+                        <a class="navbar-brand" href="{{ url_for('main.info') }}">
+                            <img src="/static/images/logo.png" alt="Logo">
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="toggler-icon"></span>
+                            <span class="toggler-icon"></span>
+                            <span class="toggler-icon"></span>
+                        </button>
 
-<head>
-    <link rel="stylesheet" href="/static/css/navbar.css">
-</head>
+                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                            <ul id="nav" class="navbar-nav m-auto">
+                                {% if current_user.is_authenticated %}
+                                <li class="nav-item">
+                                    <a href="#about">Company Schedule </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#services">Individual Schedule</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div> <!-- navbar collapse -->
 
-<nav class="navbar">
-    <!-- <a class="navbar-brand mr-4" href="/"><img class="logo" src="">{{product_name}}</a> -->
+                        {% if not current_user.is_authenticated %}
+                        <div class="navbar-btn d-none d-sm-inline-block">
+                            <a class="main-btn" href="{{ url_for('auth.signup') }}">Get Started</a>
+                        </div>
+                        {% endif %}
+                    </nav> <!-- navbar -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </div> <!-- navbar area -->
+</header>
 
-    <ul>
-        <li class="nav-left"><a href="{{ url_for('main.info') }}">Home</a></li>
-        {% if not current_user.is_authenticated %}
-        <li class="nav-right"><a href="{{ url_for('auth.signup') }}">Sign Up</a></li>
-        <li class="nav-right"><a href="{{ url_for('auth.signin') }}">Sign In</a></li>
-        {% endif %}
-        {% if current_user.is_authenticated %}
-        <li class="nav-right"><a href="{{ url_for('auth.signout') }}">Sign out</a></li>
-        {% endif %}
-    </ul>
-</nav>
+<!--====== HEADER PART ENDS ======-->
