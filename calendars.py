@@ -9,7 +9,7 @@ def get_company_calendar(group_id):
 
 
 def get_user_calendar(user_id):
-    all_items = Slot.query.filter_by(user_id=user.id).all()
+    all_items = Slot.query.filter_by(user_id=user_id).all()
 
     return { 'data': [item.to_dict() for item in all_items] }
 

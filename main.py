@@ -14,7 +14,7 @@ def info():
     else:
         return render_template('info.html', title=f'{product_name}')
 
-@main.route("/home", methods=['POST'])
+@main.route("/home")
 @login_required
 def home():
     company_data = get_company_calendar(current_user.group_id)

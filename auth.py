@@ -16,6 +16,8 @@ def signin():
         if not user or not check_password_hash(user.password, form.password.data):
             flash('Please check your login details and try again.', "error")
             return redirect(url_for('auth.signin'))
+
+        print("/n/n", form.remember.data, "/n/n")
         
         login_user(user, remember=form.remember.data)
                 
