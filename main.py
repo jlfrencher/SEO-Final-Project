@@ -16,6 +16,7 @@ def info():
     else:
         return render_template('info.html', title=f'{product_name}')
 
+
 @main.route("/home")
 @login_required
 def home():
@@ -29,6 +30,7 @@ def home():
         company_data=json.dumps(company_data),
         personal_data=json.dumps(personal_data)
     )
+
 
 @main.route("/home/update", methods=['POST'])
 @login_required
