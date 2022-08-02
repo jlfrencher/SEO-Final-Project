@@ -192,6 +192,7 @@ th[colspan="7"] {
     font-weight: 600;
     font-size: 30px;
     color: black;
+    font-family: "Nunito", sans-serif;
 }
 
 /*This is where the color for the bar under the top header date is */
@@ -207,7 +208,8 @@ th[colspan="7"]::after {
     -webkit-transform: translateX(-50%);
         -ms-transform: translateX(-50%);
             transform: translateX(-50%);
-    background: #fc67679a
+    background: #fc67679a;
+    font-family: "Nunito", sans-serif;
 }
 tr.calendar-header {
 
@@ -216,6 +218,7 @@ tr.calendar-header .calendar-header-day {
     padding: 10px;
     text-align: center;
     color: #5a5a5a;
+    font-family: "Nunito", sans-serif;
 }
 
 tr.calendar-body {
@@ -240,6 +243,7 @@ tr.calendar-body .calendar-day .day {
     transition: all .3s ease, transform .5s ease;
     transition: all .3s ease, transform .5s ease, -webkit-transform .5s ease;
     cursor: pointer;
+    font-family: "Nunito", sans-serif;
 }
 tr.calendar-body .calendar-day .day:hover {
     background-color: #dadada;
@@ -322,6 +326,11 @@ tr.calendar-body .calendar-day .day[disabled] {
             box-shadow: 5px 0 18px -3px #8773c1;
     z-index: 1;
 }
+
+.event-list {
+    margin-top: 10px !important;
+}
+
 .event-list::after {
     content: "";
     clear: both;
@@ -329,14 +338,15 @@ tr.calendar-body .calendar-day .day[disabled] {
 }
 
 /* This is where the color for the box on the right hand foldable section is*/
-.event-list > .event-empty {
-    padding: 15px 10px;
+/* .event-list > .event-empty {
+    padding: 10px 5px;
     background-color: rgba(193, 115, 170, 0.15);
     border: 1px solid #c173bd;
-}
+} */
 .event-list > .event-empty > p {
-    margin: 0;
-    color: #755eb5;
+    font-size: 18px;
+    font-weight: 400;
+    color: #5a5a5a;
 }
 .event-container {
     position: relative;
@@ -436,6 +446,15 @@ tr.calendar-body .calendar-day .day[disabled] {
 .event-container > .event-info > p.event-desc {
     font-size: 14px;
     margin-top: 5px;
+}
+
+
+#time-input {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    margin: 40px auto;
+    width:50%;
 }
 
 
@@ -847,6 +866,7 @@ button.icon-button > span.chevron-arrow-right {
     }
 
     th[colspan="7"]::after {
+        font-family: "Nunito", sans-serif;;
         bottom: 0;
     }
 
@@ -992,6 +1012,7 @@ button.icon-button > span.chevron-arrow-right {
     th[colspan="7"] {
         font-size: 20px;
         padding-bottom: 5px;
+        font-family: "Nunito", sans-serif;
     }
     tr.calendar-header .calendar-header-day {
         font-size: 16px;

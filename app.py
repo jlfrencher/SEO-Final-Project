@@ -1,6 +1,7 @@
 from flask import Flask
 from extensions import *
 from config import SECRET_KEY
+import logging
 import main
 import auth
 
@@ -9,6 +10,9 @@ def create_app():
     app.config['SECRET_KEY'] = SECRET_KEY
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    log = logging.getLogger('werkzeug')
+    log.setLevel(logging.ERROR)
     
     register_extensions(app)
     register_blueprints(app)
@@ -16,7 +20,10 @@ def create_app():
     from models import User, Slot
 
     with app.app_context():
-        db.create_all()
+        try:
+            db.create_all()
+        except Exception as e:
+            print(e)
 
     login_manager.login_view = 'auth.login'
 

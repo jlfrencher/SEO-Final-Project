@@ -5,13 +5,19 @@ from datetime import time
 def get_company_calendar(group_id):
     all_items = Slot.query.filter_by(group_id=group_id).all()
 
-    return { 'data': [item.to_dict() for item in all_items] }
+    return [
+        {**item.to_dict(),
+        **{
+            'name': User.query.filter_by(id=item.user_id).first().name
+        }} 
+        for item in all_items
+    ]
 
 
 def get_user_calendar(user_id):
     all_items = Slot.query.filter_by(user_id=user_id).all()
 
-    return { 'data': [item.to_dict() for item in all_items] }
+    return [item.to_dict() for item in all_items]
 
 
 def add_slot(group_id, user_id, date, start_time=time(0), end_time=time(0)):
@@ -27,10 +33,10 @@ def add_slot(group_id, user_id, date, start_time=time(0), end_time=time(0)):
 
 
 def remove_slot(id):
-    query = Slot.query.filter_by(id=id).first()
+    query = Slot.query.filter_by(id=id)
     
     if query:
-        data = query.to_dict()
+        data = query.first().to_dict()
         query.delete()
         db.session.commit()
         return data

@@ -1,13 +1,161 @@
 {% extends "layout.html" %}
 {% block content %}
+
+<head>
+    <title>Hybrid Scehdule | {{ name }}</title>
+    <link rel="stylesheet" href="/static/css/evo-calendar.css">
+    <link rel="stylesheet" href="/static/css/home.css">
+</head>
+
 <section class="home">
-    <h1>{{ name }}</h1>
-    <div class="company-calendar">
+    <div class="calendar" id="company_cal">
         <h2>Company Calendar</h2>
+        <div class="hero">
+            <div id="company_calendar"></div>
+        </div>
     </div>
-    <div class="personal-calendar">
+    <div class="calendar" id="personal_cal">
         <h2>Personal Calendar</h2>
+        <div class="hero">
+            <div id="personal_calendar"></div>
+        </div>
     </div>
 </section>
+
+<script src="/static/js/evo-calendar.js"></script>
+<script>
+    let company_data = JSON.parse({{ company_data | tojson }});
+    let personal_data = JSON.parse({{ personal_data | tojson }});
+    let company_calendar = [],
+        personal_calendar = [];
+
+    company_data.forEach((event) => {
+        company_calendar.push({
+            id: event.id,
+            name: `${event.name}`,
+            description: `${event.start_time} - ${event.end_time}`,
+            date: event.date,
+            type: 'event',
+            everyYear: false
+        });
+    });
+
+    personal_data.forEach((event) => {
+        personal_calendar.push({
+            id: event.id,
+            name: `${event.start_time} - ${event.end_time}`,
+            date: event.date,
+            type: 'event',
+            everyYear: false
+        });
+    });
+
+    function updateData() {
+        let start = $('#start_time').val();
+        let end = $('#end_time').val();
+        let selected_date = $('#time_submit').attr('class');
+
+        let id;
+        for (var i in personal_calendar)
+            if (personal_calendar[i].date == selected_date) {
+                id = personal_calendar[i].id;
+                break;
+            }
+
+        let data = {
+            id: id,
+            date: selected_date,
+            action: null
+        };
+
+        if (id != null)
+            data.action = 'update'
+        else
+            data.action = 'add'
+
+        $.ajax({
+            url: '/home/update',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (data) {
+                console.log("Item added")
+            }
+        })
+    }
+
+    function removeData() {
+        let selected_date = $('#remove_button').attr('class');
+
+        let id = null;
+        for (var i in personal_calendar)
+            if (personal_calendar[i].date == selected_date) {
+                id = personal_calendar[i].id;
+                break;
+            }
+
+        if (id == null)
+            return;
+
+        let data = {
+            id: id,
+            date: selected_date,
+            action: "remove"
+        };
+
+        $.ajax({
+            url: '/home/update',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (data) {
+                console.log(`Item #${id} removed`)
+            }
+        })
+
+        location.reload();
+    }
+
+    // initialize your calendar, once the page's DOM is ready
+    $(document).ready(function () {
+        $('#company_calendar').evoCalendar({
+            sidebarToggler: false,
+            sidebarDisplayDefault: false,
+            eventListToggler: false,
+            eventDisplayDefault: true,
+            calendarEvents: company_calendar
+        })
+
+        $('#personal_calendar').evoCalendar({
+            sidebarToggler: true,
+            sidebarDisplayDefault: false,
+            calendarEvents: personal_calendar
+        })
+
+        $("#personal_calendar").on('selectDate', function () {
+            let el = $(event.target).closest('.event-container').prevObject[0];
+            let selected_date = $(el).attr('data-date-val').toString();
+            let input = $('#personal_calendar').find('.event-list');
+            let old_time = $(input).find('.event-title');
+            let start_time = "00:00",
+                end_time = "00:00";
+
+            if (old_time.length > 0)
+                [start_time, end_time] = $(old_time).html().split(' - ');
+
+            input.html(
+                `
+                    <form id="time-input">
+                        <input type="time" id="start_time" name="appt" min="07:00" max="11:00" value="${start_time}" required>
+                        <input type="time" id="end_time" name="appt" min="16:00" max="21:00" value="${end_time}" required>
+                        <input type="submit" id="time_submit" onclick=updateData() class=${selected_date}>
+                        <input type="button" id="remove_button" onclick=removeData() class=${selected_date} value="Remove">
+                    </form>                
+                `
+            );
+        });
+
+    })
+</script>
 
 {% endblock content %}
