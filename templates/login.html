@@ -57,11 +57,17 @@
                     {% endif %}
             </div>
             <div class="form-group">
-                {{ form.remember.label(class="") }} {% if form.remember.errors %}
+                {{ form.remember.label(class="", id = "remember_field") }} 
+                  {% if form.remember.errors %}
                 {{ form.remember(class="") }}
-                <div class="invalid-feedback"> {% for error in form.remember.errors%} <span>{{error}}</span>
-                    {% endfor %} </div> {% else %} {{ form.remember(class="") }}
-                {% endif %}
+                <div class="invalid-feedback"> 
+                  {% for error in form.remember.errors%} 
+                    <span>{{error}}</span>
+                  {% endfor %} 
+                </div> 
+                  {% else %} 
+                    {{ form.remember(class="") }}
+                  {% endif %}
             </div>
         </fieldset>
         <div class="signin-form-group">

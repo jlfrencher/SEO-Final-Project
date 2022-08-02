@@ -150,8 +150,10 @@
                     <form id="time-input">
                         <input type="time" id="start_time" name="appt" min="07:00" max="11:00" value="${start_time}" required>
                         <input type="time" id="end_time" name="appt" min="16:00" max="21:00" value="${end_time}" required>
+                        <div class="buttons">
                         <input type="submit" id="time_submit" onclick=updateData() class=${selected_date}>
                         <input type="button" id="remove_button" onclick=removeData() class=${selected_date} value="Remove">
+                        </div>
                     </form>                
                 `
             );
