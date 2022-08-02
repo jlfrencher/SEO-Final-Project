@@ -287,3 +287,7 @@ p{
 a{
     display:inline-block;
 }
+
+#remember_field{
+    padding: 10px 30px;
+}
