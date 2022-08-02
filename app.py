@@ -1,6 +1,6 @@
 from flask import Flask
 from extensions import *
-from config import SECRET_KEY
+# from config import SECRET_KEY
 import main
 import auth
 
