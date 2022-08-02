@@ -4,6 +4,9 @@ from flask_login import login_user, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import User
 from extensions import db
+from email_validator import validate_email, EmailNotValidError
+import requests
+from config import EMAIL_API
 
 auth = Blueprint('auth', __name__)
 
@@ -16,8 +19,6 @@ def signin():
         if not user or not check_password_hash(user.password, form.password.data):
             flash('Please check your login details and try again.', "error")
             return redirect(url_for('auth.signin'))
-
-        print("/n/n", form.remember.data, "/n/n")
         
         login_user(user, remember=form.remember.data)
                 
@@ -28,6 +29,17 @@ def signin():
 def signup():
     form = RegistrationForm()
     if form.validate_on_submit(): # checks if entries are valid
+
+        response = requests.get(
+            "https://isitarealemail.com/api/email/validate",
+            params = {'email': form.email.data},
+            headers = {'Authorization': "Bearer " + EMAIL_API }
+        )
+        status = response.json()['status']
+        if not (status == "valid"):
+            flash('Email entered is invalid', 'error')
+            return redirect(url_for('auth.signup'))
+
         user = User.query.filter_by(email=form.email.data).first()
 
         if user:
