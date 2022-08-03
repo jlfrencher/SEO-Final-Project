@@ -24,36 +24,44 @@
 
 <script src="/static/js/evo-calendar.js"></script>
 <script>
-    let company_data = JSON.parse({{ company_data | tojson }});
-    let personal_data = JSON.parse({{ personal_data | tojson }});
-    let company_calendar = [],
-        personal_calendar = [];
+    function getData(){
+        let company_calendar = [],
+            personal_calendar = [];
 
-    company_data.forEach((event) => {
-        company_calendar.push({
-            id: event.id,
-            name: `${event.name}`,
-            description: `${event.start_time} - ${event.end_time}`,
-            date: event.date,
-            type: 'event',
-            everyYear: false
-        });
-    });
+        fetch('/home/update')
+            .then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                data.company.forEach((event) => {
+                    company_calendar.push({
+                        id: event.id,
+                        name: `${event.name}`,
+                        description: `${event.start_time} - ${event.end_time}`,
+                        date: event.date,
+                        type: 'event',
+                        everyYear: false
+                    });
+                });
 
-    personal_data.forEach((event) => {
-        personal_calendar.push({
-            id: event.id,
-            name: `${event.start_time} - ${event.end_time}`,
-            date: event.date,
-            type: 'event',
-            everyYear: false
-        });
-    });
+                data.personal.forEach((event) => {
+                    personal_calendar.push({
+                        id: event.id,
+                        name: `${event.start_time} - ${event.end_time}`,
+                        date: event.date,
+                        type: 'event',
+                        everyYear: false
+                    });
+                });
+
+                createCalendars(company_calendar, personal_calendar)
+            });
+    }
 
     function updateData() {
         let start = $('#start_time').val();
         let end = $('#end_time').val();
         let selected_date = $('#time_submit').attr('class');
+        let personal_calendar = $('#personal_calendar').evoCalendar("getEvents");
 
         let id;
         for (var i in personal_calendar)
@@ -67,13 +75,11 @@
             date: selected_date,
             start_time: start,
             end_time: end,
-            action: null
+            action: "add"
         };
 
         if (id != null)
-            data.action = 'update'
-        else
-            data.action = 'add'
+            data.action = 'update';
 
         $.ajax({
             url: '/home/update',
@@ -83,11 +89,39 @@
             success: function (data) {
                 console.log("Item added")
             }
-        })
+        });
+
+        fetch('/home/id')
+            .then(function (response) {
+                return response.json();
+            }).then(function (slot) {
+                if(id != null){
+                    $('#personal_calendar').evoCalendar("removeCalendarEvent", slot.id);
+                    $('#company_calendar').evoCalendar("removeCalendarEvent", slot.id);
+                }
+                $('#personal_calendar').evoCalendar("addCalendarEvent", [{
+                    id: slot.id,
+                    name: `${data.start_time} - ${data.end_time}`,
+                    date: data.date,
+                    type: 'event',
+                    everyYear: false 
+                }]);
+                $('#company_calendar').evoCalendar("addCalendarEvent", [{
+                    id: slot.id,
+                    name: `${slot.name}`,
+                    description: `${data.start_time} - ${data.end_time}`,
+                    date: data.date,
+                    type: 'event',
+                    everyYear: false 
+                }]);
+            })
     }
 
     function removeData() {
         let selected_date = $('#remove_button').attr('class');
+        let personal_calendar = $('#personal_calendar').evoCalendar("getEvents");
+
+        console.log(selected_date)
 
         let id = null;
         for (var i in personal_calendar)
@@ -95,7 +129,8 @@
                 id = personal_calendar[i].id;
                 break;
             }
-
+        
+        console.log(id)
         if (id == null)
             return;
 
@@ -113,13 +148,21 @@
             success: function (data) {
                 console.log(`Item #${id} removed`)
             }
-        })
+        });
 
-        location.reload();
+        $('#personal_calendar').evoCalendar("removeCalendarEvent", id);
+        $('#company_calendar').evoCalendar("removeCalendarEvent", id);
+        $('#company_calendar').find('.event-list').html(
+            `
+                <div class='event-empty'>
+                    <p>The office is empty!</p>
+                </div>
+            `
+        );
     }
 
-    // initialize your calendar, once the page's DOM is ready
-    $(document).ready(function () {
+    function createCalendars(company_calendar, personal_calendar) {
+
         $('#company_calendar').evoCalendar({
             sidebarToggler: false,
             sidebarDisplayDefault: false,
@@ -134,13 +177,19 @@
             calendarEvents: personal_calendar
         })
 
+        // console.log($('#company_calendar').evoCalendar("getEvents"));
+    }
+
+    $(document).ready(function () {
+        getData()
+
         $("#personal_calendar").on('selectDate', function () {
             let el = $(event.target).closest('.event-container').prevObject[0];
-            let selected_date = $(el).attr('data-date-val').toString();
+            let selected_date = $(el).attr('data-date-val');
             let input = $('#personal_calendar').find('.event-list');
             let old_time = $(input).find('.event-title');
-            let start_time = "00:00",
-                end_time = "00:00";
+            let start_time = "06:00",
+                end_time = "15:00";
 
             if (old_time.length > 0)
                 [start_time, end_time] = $(old_time).html().split(' - ');
@@ -148,17 +197,16 @@
             input.html(
                 `
                     <form id="time-input">
-                        <input type="time" id="start_time" name="appt" min="07:00" max="11:00" value="${start_time}" required>
-                        <input type="time" id="end_time" name="appt" min="16:00" max="21:00" value="${end_time}" required>
+                        <input type="time" id="start_time" name="appt" min="06:00" max="11:00" value="${start_time}" required>
+                        <input type="time" id="end_time" name="appt" min="15:00" max="22:00" value="${end_time}" required>
                         <div class="buttons">
-                        <input type="submit" id="time_submit" onclick=updateData() class=${selected_date}>
+                        <input type="button" id="time_submit" onclick=updateData() class=${selected_date} value="Submit">
                         <input type="button" id="remove_button" onclick=removeData() class=${selected_date} value="Remove">
                         </div>
                     </form>                
                 `
             );
         });
-
     })
 </script>
 

@@ -1097,6 +1097,10 @@
         return new Date(d) && !isNaN(new Date(d).getTime());
     }
 
+    EvoCalendar.prototype.getEvents = function(d) {
+        return this.options.calendarEvents;
+    }
+
     $.fn.evoCalendar = function() {
         var _ = this,
             opt = arguments[0],

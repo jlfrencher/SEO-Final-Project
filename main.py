@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, flash, redirect, request
+from flask import Blueprint, render_template, url_for, flash, redirect, request, jsonify
 from forms import LoginForm, RegistrationForm
 from flask_login import login_required, current_user
 from calendars import *
@@ -20,39 +20,41 @@ def info():
 @main.route("/home")
 @login_required
 def home():
-    company_data = get_company_calendar(current_user.group_id)
-    personal_data = get_user_calendar(current_user.id)
-    
-    return render_template(
-        'home.html',
-        title=f'{product_name}',
-        name=current_user.name,
-        company_data=json.dumps(company_data),
-        personal_data=json.dumps(personal_data)
-    )
+    return render_template('home.html', name=current_user.name)
 
 
-@main.route("/home/update", methods=['POST'])
+@main.route("/home/update", methods=['GET','POST'])
 @login_required
 def updateData():
-    data = request.json
-    print(data['action'])
+    if request.method == 'GET':
+        data = {
+            'company': get_company_calendar(current_user.group_id),
+            'personal': get_user_calendar(current_user.id)
+        }
+        return jsonify(data)
 
-    if data['action'] == "update":
-        update_slot(
-            id=data['id'],
-            start_time=datetime.strptime(data['start_time'], '%H:%M').time(),
-            end_time=datetime.strptime(data['end_time'], '%H:%M').time()
-        )
-    elif data['action'] == 'add':
-        add_slot(
-            group_id=current_user.group_id,
-            user_id=current_user.id,
-            date=datetime.strptime(data['date'], "%m/%d/%Y"),
-            start_time=datetime.strptime(data['start_time'], '%H:%M').time(),
-            end_time=datetime.strptime(data['end_time'], '%H:%M').time()
-        )
-    elif data['action'] == 'remove':
-        remove_slot(data['id'])
+    if request.method == 'POST':
+        data = request.json
 
-    return redirect(url_for('main.home'))
+        if data['action'] == "update":
+            update_slot(
+                id=data['id'],
+                start_time=datetime.strptime(data['start_time'], '%H:%M').time(),
+                end_time=datetime.strptime(data['end_time'], '%H:%M').time()
+            )
+        elif data['action'] == 'add':
+            add_slot(
+                group_id=current_user.group_id,
+                user_id=current_user.id,
+                date=datetime.strptime(data['date'], "%m/%d/%Y"),
+                start_time=datetime.strptime(data['start_time'], '%H:%M').time(),
+                end_time=datetime.strptime(data['end_time'], '%H:%M').time()
+            )
+        elif data['action'] == 'remove':
+            remove_slot(data['id'])
+        return 'Success', 200
+
+@main.route("/home/id", methods=['GET'])
+@login_required
+def getID():
+    return jsonify({'id': getLastID(current_user.id), 'name': current_user.name})

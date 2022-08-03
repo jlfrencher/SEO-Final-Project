@@ -36,12 +36,8 @@ def remove_slot(id):
     query = Slot.query.filter_by(id=id)
     
     if query:
-        data = query.first().to_dict()
         query.delete()
         db.session.commit()
-        return data
-    else:
-        return None
 
 
 def update_slot(id, date=None, start_time=None, end_time=None):
@@ -61,3 +57,6 @@ def update_slot(id, date=None, start_time=None, end_time=None):
     
     db.session.commit()
     
+def getLastID(user_id):
+    query = Slot.query.order_by(Slot.id.desc()).first()
+    return query.id
