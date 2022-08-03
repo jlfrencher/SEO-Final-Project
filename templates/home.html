@@ -207,6 +207,16 @@
                 `
             );
         });
+
+        $('#company_calendar').find('.event-title').click(function (){
+            let name = $(this).find('.event-title').html();
+            let [time_in, time_out] = $(this).find('.event-desc').html().split(' - ');
+            alert(
+                `
+                    Now tracking ${name}.
+                `
+            )
+        })
     })
 </script>
 

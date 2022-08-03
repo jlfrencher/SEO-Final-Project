@@ -8,11 +8,11 @@ from datetime import datetime, time
 # createFakeSlots(app, db, Slot)
 # createFakeUsers(app, db, User)
 
-def test_get_company_calendar(group_id):
-    company = get_company_calendar(group_id)
-    for item in company['data']:
-        print(item)
+# def test_get_company_calendar(group_id):
+#     company = get_company_calendar(group_id)
+#     for item in company['data']:
+#         print(item)
 
-with app.app_context():
-    # test_get_company_calendar(11223344)
-    pass
+# with app.app_context():
+#     # test_get_company_calendar(11223344)
+#     pass

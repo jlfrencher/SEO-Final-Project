@@ -8,15 +8,6 @@
 </head>
 
 <section class="forms">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        <div class='notification {{ messages[0][0] }}'>
-            {{ messages[0][1] }}
-             <!-- Go to <a href="{{ url_for('auth.signin') }}">login page</a>. -->
-        </div>
-    {% endif %}
-    {% endwith %}
-
     {% if form_type %}
 
     <title>Hybrid Schedule | Sign In</title>
@@ -177,6 +168,14 @@
       </div>
     </form>
     {% endif %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class='notification {{ messages[0][0] }}'>
+            {{ messages[0][1] }}
+             <!-- Go to <a href="{{ url_for('auth.signin') }}">login page</a>. -->
+        </div>
+    {% endif %}
+    {% endwith %}
 </section>
 
 <!-- <script src="/static/js/login.js"></script> -->

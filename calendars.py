@@ -1,6 +1,6 @@
 from models import *
 from extensions import db
-from datetime import time
+from datetime import datetime, time, timedelta
 
 def get_company_calendar(group_id):
     all_items = Slot.query.filter_by(group_id=group_id).all()
@@ -60,3 +60,19 @@ def update_slot(id, date=None, start_time=None, end_time=None):
 def getLastID(user_id):
     query = Slot.query.order_by(Slot.id.desc()).first()
     return query.id
+
+def createMeeting(start_date, end_date):
+    if start_date > end_date:
+        return
+    
+    numDays = (end_date - start_date).days()
+    data = []
+
+    for i in range(numDays):
+        query = Slot.query.filter_by(date=(start_date + timedelta(days=i)))
+        data[i].push(query.count())
+
+    max_index = data.index(max(data))
+
+    all_users = Slot.query.filter_by(date=(start_date + max_index)).all()
+    pass
